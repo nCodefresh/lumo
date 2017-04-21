@@ -15,7 +15,7 @@ steps:
 
   pre_build_step:
     type: build
-    title: Building image
+    title: Building pre image
     dockerfile: Dockerfile.pre
     working_directory: ${{git_clone}}
     image-name: anmonteiro/lumo-pre
