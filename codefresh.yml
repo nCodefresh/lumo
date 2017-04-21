@@ -1,22 +1,38 @@
 version: '1.0'
 steps:
 
+  git_clone:
+    type: git-clone
+    title: Cloning repository
+    repo: https://github.com/anmonteiro/lumo.git
+    revision: 5aee0f6d3b83b5ab47f9da2bfdb033d5605f3102
+
+  pre_build_step:
+    type: build
+    title: Building image
+    dockerfile: Dockerfile.pre
+    working_directory: ${{git_clone}}
+    image-name: anmonteiro/lumo-pre
+    tag: latest
+
   build_step:
     type: build
+    title: Building image
     dockerfile: Dockerfile
+    working_directory: ${{pre_build_step}}
     image-name: anmonteiro/lumo
     tag: '${{CF_BRANCH}}'
 
-  unit_tests:
-    image: ${{build_step}}
-    working_directory: IMAGE_WORK_DIR
-    fail-fast: true
-    commands:
-      - yarn lint
-      - yarn type:check
-      - yarn test
-      - boot test
-      - boot release-ci
-      - chmod a+x build/lumo
-      - zip -j build/lumo.zip build/lumo
-      - aws s3 sync build "s3://lumo-linux" --region "us-east-1" --acl "public-read"
+#  unit_tests:
+#    image: ${{build_step}}
+#    working_directory: IMAGE_WORK_DIR
+#    fail-fast: true
+#    commands:
+#      - yarn lint
+#      - yarn type:check
+#      - yarn test
+#      - boot test
+#      - boot release-ci
+#      - chmod a+x build/lumo
+#      - zip -j build/lumo.zip build/lumo
+#      - aws s3 sync build "s3://lumo-linux" --region "us-east-1" --acl "public-read"
