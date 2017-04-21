@@ -5,7 +5,7 @@ steps:
     type: git-clone
     title: Cloning repository
     repo: https://github.com/anmonteiro/lumo.git
-    revision: 5aee0f6d3b83b5ab47f9da2bfdb033d5605f3102
+#    revision: 5aee0f6d3b83b5ab47f9da2bfdb033d5605f3102
 
   pre_build_step:
     type: build
