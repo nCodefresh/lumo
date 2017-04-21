@@ -31,7 +31,7 @@ steps:
     type: build
     title: Building image
     dockerfile: Dockerfile
-    working_directory: ${{pre_build_step}}
+    working_directory: ${{main_clone}}
     image_name: anmonteiro/lumo
     tag: '${{CF_BRANCH}}'
 
