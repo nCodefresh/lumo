@@ -7,18 +7,24 @@ steps:
     repo: https://github.com/nCodefresh/lumo.git
 #    revision: 5aee0f6d3b83b5ab47f9da2bfdb033d5605f3102
 
-  check_folder:
-    image: node:latest
-    working_directory: ${{git_clone}}
-    commands:
-      - ls -l
+#  check_folder:
+#    image: node:latest
+#    working_directory: ${{git_clone}}
+#    commands:
+#      - ls -l
 
   pre_build_step:
     type: build
     title: Building pre image
     dockerfile: Dockerfile.pre
     working_directory: ${{git_clone}}
-    image-name: anmonteiro/lumo-pre
+    image_name: ncodefresh/lumo-pre
+    tag: latest
+
+  push_step:
+    type: push
+    title: Pushing to registry
+    candidate: ${{pre_build_step}}
     tag: latest
 
   build_step:
@@ -26,7 +32,7 @@ steps:
     title: Building image
     dockerfile: Dockerfile
     working_directory: ${{pre_build_step}}
-    image-name: anmonteiro/lumo
+    image_name: anmonteiro/lumo
     tag: '${{CF_BRANCH}}'
 
 #  unit_tests:

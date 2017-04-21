@@ -1,4 +1,4 @@
-FROM anmonteiro/lumo-pre:latest
+FROM ncodefresh/lumo-pre:latest
 
 RUN mkdir -p /out
 
